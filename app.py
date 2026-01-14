@@ -14,3 +14,6 @@ st.write("data_ingestion imported successfully")
 
 import preprocessing
 st.write("preprocessing imported successfully")
+
+import model_trainer
+st.write("model_trainer imported successfully")
