@@ -21,3 +21,6 @@ st.write("model_trainer imported successfully")
 import evaluation
 st.write("evaluation imported successfully")
 
+import hyperparameter
+st.write("hyperparameter imported successfully")
+
