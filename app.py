@@ -17,3 +17,7 @@ st.write("preprocessing imported successfully")
 
 import model_trainer
 st.write("model_trainer imported successfully")
+
+import evaluation
+st.write("evaluation imported successfully")
+
