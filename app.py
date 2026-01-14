@@ -9,6 +9,8 @@ if uploaded_file:
     df = pd.read_csv(uploaded_file)
     st.dataframe(df.head())
 
-# 🔽 ADD THIS
 import data_ingestion
 st.write("data_ingestion imported successfully")
+
+import preprocessing
+st.write("preprocessing imported successfully")
