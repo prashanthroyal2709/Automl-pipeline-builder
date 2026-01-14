@@ -6,6 +6,7 @@ from evaluation import evaluate_score_cls, evaluate_score_reg
 from hyperparameter import *
 
 import numpy as np
+import seaborn as sns
 import pandas as pd
 import os
 import joblib
