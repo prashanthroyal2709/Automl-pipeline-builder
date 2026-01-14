@@ -1,26 +1,65 @@
 import streamlit as st
 import pandas as pd
+from main import run_automl
 
-st.write("HELLO STREAMLIT")
+# -----------------------------
+# Page config
+# -----------------------------
+st.set_page_config(
+    page_title="AutoML Pipeline Builder",
+    layout="centered"
+)
 
-uploaded_file = st.file_uploader("Upload CSV", type="csv")
+st.title("🚀 AutoML Pipeline Builder")
+st.write(
+    "Upload a CSV file, select the target column, and automatically "
+    "train and evaluate the best machine learning model."
+)
 
-if uploaded_file:
+# -----------------------------
+# Upload CSV
+# -----------------------------
+uploaded_file = st.file_uploader(
+    "Upload CSV file",
+    type=["csv"]
+)
+
+if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
+
+    st.success("CSV file uploaded successfully ✅")
+    st.subheader("Dataset Preview")
     st.dataframe(df.head())
 
-import data_ingestion
-st.write("data_ingestion imported successfully")
+    # -----------------------------
+    # Target column selection
+    # -----------------------------
+    target_col = st.selectbox(
+        "Select the Target Column",
+        df.columns
+    )
 
-import preprocessing
-st.write("preprocessing imported successfully")
+    # -----------------------------
+    # Run AutoML
+    # -----------------------------
+    if st.button("Run AutoML 🚀"):
+        with st.spinner("Training models and selecting the best one..."):
+            best_model, best_score, metrics_df = run_automl(df, target_col)
 
-import model_trainer
-st.write("model_trainer imported successfully")
+        st.success("AutoML Completed Successfully 🎉")
 
-import evaluation
-st.write("evaluation imported successfully")
+        st.subheader("Best Model Performance")
+        st.metric(
+            label="Best Score",
+            value=round(best_score, 4)
+        )
 
-import hyperparameter
-st.write("hyperparameter imported successfully")
+        st.subheader("Model Comparison")
+        st.dataframe(
+            metrics_df[["model_name", "score"]]
+            .sort_values("score", ascending=False)
+            .reset_index(drop=True)
+        )
 
+else:
+    st.info("👆 Please upload a CSV file to get started")
