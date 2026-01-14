@@ -44,9 +44,13 @@ if uploaded_file is not None:
     # -----------------------------
     if st.button("Run AutoML 🚀"):
         with st.spinner("Training models and selecting the best one..."):
-            best_model, best_score, metrics_df = run_automl(df, target_col)
+            best_model, best_model_name, best_score, metrics_df = run_automl(df, target_col)
 
         st.success("AutoML Completed Successfully 🎉")
+        st.subheader("Best Model Details")
+        st.write(f"🏆 **Best Model:** `{best_model_name}`")
+        st.metric("Best Score", round(best_score, 4))
+
 
         st.subheader("Best Model Performance")
         st.metric(
