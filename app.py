@@ -64,6 +64,17 @@ if uploaded_file is not None:
             .sort_values("score", ascending=False)
             .reset_index(drop=True)
         )
+        # Download button
+        buffer = io.BytesIO()
+        joblib.dump(best_model, buffer)
+        buffer.seek(0)
+
+        st.download_button(
+            label="⬇️ Download Best Model (.pkl)",
+            data=buffer,
+            file_name="best_model.pkl",
+            mime="application/octet-stream"
+        )        
 
 else:
     st.info("👆 Please upload a CSV file to get started")
