@@ -122,5 +122,10 @@ def run_automl(df, target_col):
 
     best_pipeline = best_row["pipeline"]
     best_score = best_row["score"]
+    best_model_name = best_row["model_name"]
+    # Save best model
+    os.makedirs("artifacts", exist_ok=True)
+    joblib.dump(best_pipeline, "artifacts/best_model.pkl")
 
-    return best_pipeline, best_score, results_df
+    return best_pipeline, best_model_name, best_score, results_df
+
